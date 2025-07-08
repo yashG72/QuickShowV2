@@ -331,3 +331,35 @@ export const dummyBookingData = [
         "isPaid": true,
     },
 ]
+
+export const dummySeatLayoutData = {
+  "68352363e96d99513e4221a4": {
+    success: true,
+    movie: {
+      title: "In the Lost Lands",
+      poster_path: "https://image.tmdb.org/t/p/original/dDlfjR7gllmr8HTeN6rfrYhTdwX.jpg"
+    },
+    dateTime: {
+      "2025-07-24": [
+        { time: "2025-07-24T01:00:00.000Z", showId: "68395b407f6329be2bb45bd1" },
+        { time: "2025-07-24T03:00:00.000Z", showId: "68395b407f6329be2bb45bd2" },
+        { time: "2025-07-24T05:00:00.000Z", showId: "68395b407f6329be2bb45bd3" }
+      ]
+    }
+  }
+};
+
+export const dummyOccupiedSeats = {
+  "68395b407f6329be2bb45bd1": {
+    success: true,
+    occupiedSeats: ["A1", "B2", "C3"]
+  },
+  "68395b407f6329be2bb45bd2": {
+    success: true,
+    occupiedSeats: ["D1", "E4", "F2"]
+  },
+  "68395b407f6329be2bb45bd3": {
+    success: true,
+    occupiedSeats: ["G3", "H1"]
+  }
+};
