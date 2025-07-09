@@ -28,13 +28,13 @@
   
 **UI** 👉 [LINK](https://quickshow.vercel.app/)
 
-![alt text](screencapture-quickshow-sigma-roan-vercel-app-2025-07-04-07_02_38.png)
+![alt text](Screenshot 2025-07-09 143619.png)
 
 <br /><hr /><br />
 
 **Admin Dashboard** 👉 [LINK](https://quickshow.vercel.app/admin)
 
-![alt text](screencapture-quickshow-sigma-roan-vercel-app-admin-2025-07-04-07_02_14.png)
+![alt text](Screenshot 2025-07-09 143703.png)
 
 </div>
 
