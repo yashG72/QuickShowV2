@@ -28,13 +28,15 @@
   
 **UI** 👉 [LINK](https://quickshow.vercel.app/)
 
-![alt text](Screenshot 2025-07-09 143619.png)
+
+<img src="./Screenshot%202025-07-09%20143619.png" alt="Home Page" width="100%"/>
+
 
 <br /><hr /><br />
 
 **Admin Dashboard** 👉 [LINK](https://quickshow.vercel.app/admin)
 
-![alt text](Screenshot 2025-07-09 143703.png)
+<img src="./Screenshot%202025-07-09%20143703.png" alt="Admin Panel" width="100%"/>
 
 </div>
 
