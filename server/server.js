@@ -16,7 +16,7 @@ const port = 3000;
 
 await connectDB();
 
-//StripeWebhooks Route
+// Stripe Webhooks Route
 app.use(
   "/api/stripe",
   express.raw({ type: "application/json" }),
