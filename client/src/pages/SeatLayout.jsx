@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { assets, dummySeatLayoutData, dummyOccupiedSeats } from "../assets/assets";
+import { assets } from "../assets/assets";
 import Loading from "../components/Loading";
 import { ArrowRightIcon, ClockIcon } from "lucide-react";
 import isoTimeFormat from "../lib/isoTimeFormat";
 import BlurCircle from "../components/BlurCircle";
 import toast from "react-hot-toast";
+import { useAppContext } from "../context/AppContext";
 
 const SeatLayout = () => {
   const groupRows = [
@@ -24,21 +25,16 @@ const SeatLayout = () => {
 
   const navigate = useNavigate();
 
-  const getShow = () => {
-    const data = dummySeatLayoutData[id];
-    if (data?.success) {
-      setShow(data);
-    } else {
-      toast.error("Show not found");
-    }
-  };
+  const { axios, getToken, user } = useAppContext();
 
-  const getOccupiedSeats = () => {
-    const data = dummyOccupiedSeats[selectedTime.showId];
-    if (data?.success) {
-      setOccupiedSeats(data.occupiedSeats);
-    } else {
-      toast.error("Failed to fetch occupied seats");
+  const getShow = async () => {
+    try {
+      const { data } = await axios.get(`/api/show/${id}`);
+      if (data.success) {
+        setShow(data);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -80,15 +76,42 @@ const SeatLayout = () => {
     </div>
   );
 
-  const bookTickets = () => {
-    if (!selectedTime || !selectedSeats.length) {
-      return toast.error("Please select a time and seats");
+  const getOccupiedSeats = async () => {
+    try {
+      const { data } = await axios.get(
+        `/api/booking/seats/${selectedTime.showId}`
+      );
+      if (data.success) {
+        setOccupiedSeats(data.occupiedSeats);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
     }
-    toast.success("Booking simulated! (Connect API to proceed)");
-    console.log("Selected:", {
-      showId: selectedTime.showId,
-      seats: selectedSeats,
-    });
+  };
+
+  const bookTickets = async () => {
+    try {
+      if (!user) return toast.error("Please login to proceed");
+
+      if (!selectedTime || !selectedSeats.length)
+        return toast.error("Please select a time and seats");
+
+      const { data } = await axios.post(
+        "/api/booking/create",
+        { showId: selectedTime.showId, selectedSeats },
+        { headers: { Authorization: `Bearer ${await getToken()}` } }
+      );
+
+      if (data.success) {
+        window.location.href = data.url;
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   useEffect(() => {
@@ -107,7 +130,7 @@ const SeatLayout = () => {
       <div className="w-60 bg-primary/10 border border-primary/20 rounded-lg py-10 h-max md:sticky md:top-30">
         <p className="text-lg font-semibold px-6">Available Timings</p>
         <div className="mt-5 space-y-1">
-          {show.dateTime[date]?.map((item) => (
+          {show.dateTime[date].map((item) => (
             <div
               key={item.time}
               onClick={() => setSelectedTime(item)}
